@@ -18,13 +18,13 @@ export default class Product extends Component {
 
         return (
             <div className="videocard">
-                <img src={videoinfo.thumbnail} alt="thumbnail" />
+                <img src={`http://localhost:9091${videoinfo.thumbnail}`} alt="thumbnail" />
                 <h1>{videoinfo.title}</h1>
                 <h6>{videoinfo.createdAt}</h6>
                 <p>{videoinfo.description}</p>
 
                 <p>
-                    URL: <a href={videoinfo.url}>{videoinfo.url}</a>
+                    URL: <a href={`http://localhost:9091${videoinfo.url}`}>{videoinfo.url}</a>
                 </p>
             </div>
         )

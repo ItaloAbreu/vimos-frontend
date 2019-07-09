@@ -7,7 +7,7 @@ import VideoCard from '../../components/VideoCard';
 function Main() {
   return (
     <section id="content">
-      <VideoCard videoID="5d240312d3fc5e2a907f3bd8" />
+      <VideoCard videoID="5d2403405e7edd2b05f510c4" />
     </section>
   );
 }
