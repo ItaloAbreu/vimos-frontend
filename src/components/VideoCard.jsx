@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import api from '../services/api';
+import { NavLink } from 'react-router-dom';
 
 import { VideoCard } from './ComponentsStyles';
 
@@ -9,10 +9,12 @@ export default class Product extends Component {
 	};
 
 	async componentDidMount() {
-		const response = await api.get(`/video/${this.props.videoID}`);
-		response.data.createdAt = this.mountDate(response.data.createdAt);
-
-		this.setState({ videoinfo: response.data });
+		this.setState({ videoinfo: {
+			videoID: this.props.videoID,
+			thumbnail: `http://localhost:9091${this.props.thumbnail}`,
+			createdAt: this.mountDate(this.props.createdAt),
+			title: this.props.title,
+		}});
 	}
 
 	mountDate(createdAt) {
@@ -30,11 +32,13 @@ export default class Product extends Component {
 		const { videoinfo } = this.state;
 
 		return (
-			<VideoCard>
-				<img src={`http://localhost:9091${videoinfo.thumbnail}`} alt="thumbnail" />
-				<p>{videoinfo.createdAt}</p>
-				<h1>{videoinfo.title}</h1>
-			</VideoCard>
+			<NavLink to={`/player/?video=${videoinfo.videoID}`}>
+				<VideoCard>
+					<img src={videoinfo.thumbnail} alt="thumbnail" />
+					<p>{videoinfo.createdAt}</p>
+					<h1>{videoinfo.title}</h1>
+				</VideoCard>
+			</NavLink>
 		)
 	}
 }

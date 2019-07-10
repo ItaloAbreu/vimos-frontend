@@ -8,8 +8,12 @@ export const VideoCard = styled.section`
   border: solid 1px #050505;
 
   border-radius: 10px;
-  width: 300px;
-  height: 320px;
+  min-width: 300px;
+  min-height: 320px;
+  max-width: 300px;
+  max-height: 320px;
+
+  margin: 5px;
 
   cursor: pointer;
   overflow: hidden;
@@ -37,6 +41,7 @@ export const VideoCard = styled.section`
   }
 
   h1 {
+    font-size: 22px;
     margin: auto;
   }
 `;
