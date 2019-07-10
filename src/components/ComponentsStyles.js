@@ -8,10 +8,10 @@ export const VideoCard = styled.section`
   border: solid 1px #050505;
 
   border-radius: 10px;
-  min-width: 300px;
-  min-height: 320px;
-  max-width: 300px;
-  max-height: 320px;
+  min-width: 220px;
+  min-height: 240px;
+  max-width: 220px;
+  max-height: 240px;
 
   margin: 5px;
 
@@ -28,20 +28,23 @@ export const VideoCard = styled.section`
   }
 
   img {
-    width: 300px;
-    height: 175px;
+    width: 220px;
+    height: 130px;
     margin: 0;
   }
 
   p {
-    font-size: 14px;
+    font-size: 10px;
     margin-top: 9px;
     margin-right: 9px;
     margin-left: auto;
   }
 
   h1 {
-    font-size: 22px;
+    font-size: 18px;
+    padding: 0 10px;
     margin: auto;
+    text-align: justify;
+    text-align-last: center;
   }
 `;

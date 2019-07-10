@@ -14,6 +14,7 @@ export default class Product extends Component {
 			thumbnail: `http://localhost:9091${this.props.thumbnail}`,
 			createdAt: this.mountDate(this.props.createdAt),
 			title: this.props.title,
+			tratedTitle: this.mountTitle(this.props.title),
 		}});
 	}
 
@@ -28,15 +29,20 @@ export default class Product extends Component {
 		return `Upload em ${date[2]} de ${date[1]} de ${date[0]}`;
 	}
 
+	mountTitle(title) {
+		if(title.length >= 50) title = title.slice(0, 40) + '...';
+		return title;
+	}
+
 	render() {
 		const { videoinfo } = this.state;
 
 		return (
-			<NavLink to={`/player/?video=${videoinfo.videoID}`}>
+			<NavLink to={`/player/?video=${videoinfo.videoID}`} title={videoinfo.title}>
 				<VideoCard>
 					<img src={videoinfo.thumbnail} alt="thumbnail" />
 					<p>{videoinfo.createdAt}</p>
-					<h1>{videoinfo.title}</h1>
+					<h1>{videoinfo.tratedTitle}</h1>
 				</VideoCard>
 			</NavLink>
 		)
