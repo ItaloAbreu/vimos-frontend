@@ -1,14 +1,14 @@
 import React from 'react';
 
-import './source.css';
+import { Content } from './PagesStyles';
 
-import VideoCard from '../../components/VideoCard';
+import VideoCard from '../components/VideoCard';
 
 function Main() {
   return (
-    <section id="content">
+    <Content>
       <VideoCard videoID="5d2403405e7edd2b05f510c4" />
-    </section>
+    </Content>
   );
 }
 

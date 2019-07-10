@@ -1,12 +1,12 @@
 import React from 'react';
 
-import './source.css';
+import { Content } from './PagesStyles';
 
 function License() {
   return (
-    <section id="content">
+    <Content>
       <h1>License</h1>
-    </section>
+    </Content>
   );
 }
 

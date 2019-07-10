@@ -1,12 +1,12 @@
 import React from 'react';
 
-import './source.css';
+import { Content } from './PagesStyles';
 
 function Upload() {
   return (
-    <section id="content">
+    <Content>
       <h1>Upload!</h1>
-    </section>
+    </Content>
   );
 }
 
