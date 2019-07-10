@@ -1,32 +1,40 @@
 import React, { Component } from 'react';
 import api from '../services/api';
 
-import './VideoCard.css';
+import { VideoCard } from './ComponentsStyles';
 
 export default class Product extends Component {
-    state = {
-        videoinfo: {},
-    };
+	state = {
+		videoinfo: {},
+	};
 
-    async componentDidMount() {
-        const response = await api.get(`/video/${this.props.videoID}`);
+	async componentDidMount() {
+		const response = await api.get(`/video/${this.props.videoID}`);
+		response.data.createdAt = this.mountDate(response.data.createdAt);
 
-        this.setState({ videoinfo: response.data });
-    }
-    render() {
-        const { videoinfo } = this.state;
+		this.setState({ videoinfo: response.data });
+	}
 
-        return (
-            <div className="videocard">
-                <img src={`http://localhost:9091${videoinfo.thumbnail}`} alt="thumbnail" />
-                <h1>{videoinfo.title}</h1>
-                <h6>{videoinfo.createdAt}</h6>
-                <p>{videoinfo.description}</p>
+	mountDate(createdAt) {
+		const months = [
+			'Janeiro', 'Fevereiro', 'Março', 'Abril',
+			'Maio', 'Junho', 'Julho', 'Agosto',
+			'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+		];
+		let date = createdAt.slice(0, 10).split('-');
+		date[1] = months[parseInt(date[1]) - 1];
+		return `Upload em ${date[2]} de ${date[1]} de ${date[0]}`;
+	}
 
-                <p>
-                    URL: <a href={`http://localhost:9091${videoinfo.url}`}>{videoinfo.url}</a>
-                </p>
-            </div>
-        )
-    }
+	render() {
+		const { videoinfo } = this.state;
+
+		return (
+			<VideoCard>
+				<img src={`http://localhost:9091${videoinfo.thumbnail}`} alt="thumbnail" />
+				<p>{videoinfo.createdAt}</p>
+				<h1>{videoinfo.title}</h1>
+			</VideoCard>
+		)
+	}
 }
