@@ -38,13 +38,14 @@ export default class VideoCard extends Component {
 		const { videoinfo } = this.state;
 
 		return (
-			<NavLink to={`/player/?video=${videoinfo.videoID}`} title={videoinfo.title}>
-				<VideoCardStyled>
+			<VideoCardStyled>
+				<NavLink to={`/player/?video=${videoinfo.videoID}`}
+				title={videoinfo.title}>
 					<img src={videoinfo.thumbnail} alt="thumbnail" />
 					<p>{videoinfo.createdAt}</p>
 					<h1>{videoinfo.tratedTitle}</h1>
-				</VideoCardStyled>
-			</NavLink>
-		)
+				</NavLink>
+			</VideoCardStyled>
+		);
 	}
 }

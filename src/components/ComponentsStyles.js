@@ -24,7 +24,16 @@ export const VideoCardStyled = styled.section`
 
   :active {
     background-color: #444;
-    color: #151515;
+  }
+
+  a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    min-width: 220px;
+    min-height: 240px;
+    max-width: 220px;
+    max-height: 240px;
   }
 
   img {
@@ -34,6 +43,7 @@ export const VideoCardStyled = styled.section`
   }
 
   p {
+    color: #999;
     font-size: 10px;
     margin-top: 9px;
     margin-right: 9px;
@@ -41,10 +51,11 @@ export const VideoCardStyled = styled.section`
   }
 
   h1 {
+    color: #999;
     font-size: 18px;
     padding: 0 10px;
     margin: auto;
-    text-align: justify;
+    text-align: center;
     text-align-last: center;
   }
 `;
@@ -69,6 +80,7 @@ export const HeaderStyled = styled.header`
 
   .link {
     cursor: pointer;
+    text-decoration: none;
     display: flex;
     align-items: center;
 
