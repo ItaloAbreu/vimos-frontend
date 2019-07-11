@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './Footer.css';
+import { FooterStyled } from './ComponentsStyles';
 
 function Footer() {
   return (
-    <footer>
+    <FooterStyled>
       <section>
         <NavLink to="/license" className="link">License</NavLink>
         <NavLink to="/about" className="link">About</NavLink>
       </section>
-    </footer>
+    </FooterStyled>
   );
 }
 

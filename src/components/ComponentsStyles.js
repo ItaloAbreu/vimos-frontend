@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const VideoCard = styled.section`
+export const VideoCardStyled = styled.section`
   display: flex;
   flex-direction: column;
   background-color: #252525;
@@ -47,4 +47,86 @@ export const VideoCard = styled.section`
     text-align: justify;
     text-align-last: center;
   }
+`;
+
+export const HeaderStyled = styled.header`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 60px;
+
+  background: #333;
+
+  section {
+    display: flex;
+    width: 100%;
+    max-width: 640px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+    height: 60px;
+    margin: 0 60px;
+
+    font-size: 18px;
+
+    color: #fafafa;
+    transition: all 0.25s;
+  }
+
+  .link:hover {
+    background: #ac68ac;
+  }
+
+  .link:active {
+    background: #caadca;
+  }
+`;
+
+export const FooterStyled = styled.footer`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 120px;
+
+  background: #333;
+
+  section {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+    height: 50px;
+    
+    margin: 0 20px;
+
+    cursor: pointer;
+    font-size: 16px;
+    color: #cacaca;
+    text-decoration: none;
+  }
+
+  .link:hover {
+    color: #ac68ac;
+    transition: all 0.3s;
+  }
+
 `;

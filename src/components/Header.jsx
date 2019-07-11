@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './Header.css';
+import { HeaderStyled } from './ComponentsStyles';
 
 function Header() {
   return (
-    <header>
+    <HeaderStyled>
       <section>
         <NavLink to="/" className="link">Main</NavLink>
         <NavLink to="/upload" className="link">Upload</NavLink>
       </section>
-    </header>
+    </HeaderStyled>
   );
 }
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { VideoCard } from './ComponentsStyles';
+import { VideoCardStyled } from './ComponentsStyles';
 
-export default class Product extends Component {
+export default class VideoCard extends Component {
 	state = {
 		videoinfo: {},
 	};
@@ -39,11 +39,11 @@ export default class Product extends Component {
 
 		return (
 			<NavLink to={`/player/?video=${videoinfo.videoID}`} title={videoinfo.title}>
-				<VideoCard>
+				<VideoCardStyled>
 					<img src={videoinfo.thumbnail} alt="thumbnail" />
 					<p>{videoinfo.createdAt}</p>
 					<h1>{videoinfo.tratedTitle}</h1>
-				</VideoCard>
+				</VideoCardStyled>
 			</NavLink>
 		)
 	}
