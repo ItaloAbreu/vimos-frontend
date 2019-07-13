@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
+import path from 'path';
+
 import { Content, FormStyled } from './PagesStyles';
+
+const acceptedExt = ['.mp4', '.avi', '.ogg'];
 
 class Upload extends Component {
 
   submitForm = async (event) => {
     event.preventDefault();
-  
+
     const form = event.target;
     const data = new FormData(form);
   
@@ -15,7 +19,20 @@ class Upload extends Component {
       method: 'post',
       body: data,
     };
-  
+
+    if(!acceptedExt.includes(path.extname(form.video.value))) {
+      return alert('Vídeo inválido');
+    };
+
+    if(form.title.value.length <= 0) {
+      return alert('Campo de Título inválido.')
+    };
+
+    if (!form.agree.checked) {
+      return alert('Os termos de uso não foram aceitos.');
+    };
+    
+
     return fetch('http://localhost:9091/video/storage', config)
       .catch(err => console.error(err));
   };
@@ -45,7 +62,7 @@ class Upload extends Component {
               termos de uso</NavLink>.
             </p>
           </label>
-          <button type='submit'>Enviar!</button>
+          <button type='submit'>Enviar</button>
         </FormStyled>
       </Content>
     );
