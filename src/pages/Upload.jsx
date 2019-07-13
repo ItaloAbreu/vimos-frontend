@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import api from '../services/api';
 import path from 'path';
 
 import { Content, FormStyled } from './PagesStyles';
@@ -14,11 +14,11 @@ class Upload extends Component {
 
     const form = event.target;
     const data = new FormData(form);
-  
     const config = {
-      method: 'post',
-      body: data,
-    };
+      onUploadProgress: progressEvent =>
+        document.querySelector('.progress')
+        .innerHTML = `${progressEvent.loaded}/${progressEvent.total}`
+    }
 
     if(!acceptedExt.includes(path.extname(form.video.value))) {
       return alert('Vídeo inválido');
@@ -31,9 +31,8 @@ class Upload extends Component {
     if (!form.agree.checked) {
       return alert('Os termos de uso não foram aceitos.');
     };
-    
 
-    return fetch('http://localhost:9091/video/storage', config)
+    return await api.post('/video/storage', data, config)
       .catch(err => console.error(err));
   };
 
@@ -63,6 +62,7 @@ class Upload extends Component {
             </p>
           </label>
           <button type='submit'>Enviar</button>
+          <section className="progress"></section>
         </FormStyled>
       </Content>
     );
