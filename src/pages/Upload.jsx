@@ -8,6 +8,12 @@ import { Content, FormStyled } from './PagesStyles';
 const acceptedExt = ['.mp4', '.avi', '.ogg'];
 
 class Upload extends Component {
+  constructor(){
+    super()
+    this.state = {
+      uploadprogress: '',
+    };
+  }
 
   submitForm = async (event) => {
     event.preventDefault();
@@ -15,9 +21,12 @@ class Upload extends Component {
     const form = event.target;
     const data = new FormData(form);
     const config = {
-      onUploadProgress: progressEvent =>
-        document.querySelector('.progress')
-        .innerHTML = `${progressEvent.loaded}/${progressEvent.total}`
+      onUploadProgress: progressEvent => {
+        this.setState({uploadprogress: `${progressEvent.loaded}/${progressEvent.total}`})
+        if (progressEvent.loaded === progressEvent.total) {
+          return this.setState({uploadprogress: 'Upload Completo!'})
+        }
+      }
     }
 
     if(!acceptedExt.includes(path.extname(form.video.value))) {
@@ -44,11 +53,13 @@ class Upload extends Component {
         encType="multipart/form-data">
           <section>Upload do Vídeo</section>
           <input type="file" name="video"/>
-          <label className="info">Título
+          <label className="info">
+            Título
             <input type="text" name="title"
             placeholder="Título do vídeo."
             /></label>
-          <label className="info">Descrição
+          <label className="info">
+            Descrição
             <textarea type="text" name="description"
             placeholder="Uma descrição legal."
             maxLength="600"
@@ -62,7 +73,7 @@ class Upload extends Component {
             </p>
           </label>
           <button type='submit'>Enviar</button>
-          <section className="progress"></section>
+          <section>{this.state.uploadprogress}</section>
         </FormStyled>
       </Content>
     );
