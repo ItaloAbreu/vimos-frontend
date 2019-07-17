@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import api from '../services/api';
 import path from 'path';
 
-import { Content, FormStyled } from './PagesStyles';
+import { Content, FormStyled, FormStyledOnLoad } from './PagesStyles';
 
 const acceptedExt = ['.mp4', '.avi', '.ogg'];
 
@@ -11,7 +13,8 @@ class Upload extends Component {
   constructor(){
     super()
     this.state = {
-      uploadprogress: '',
+      uploadPercentage: 0,
+      loadVisibility: false,
     };
   }
 
@@ -22,9 +25,13 @@ class Upload extends Component {
     const data = new FormData(form);
     const config = {
       onUploadProgress: progressEvent => {
-        this.setState({uploadprogress: `${progressEvent.loaded}/${progressEvent.total}`})
+        this.setState({
+          uploadPercentage: Math.floor(progressEvent.loaded / progressEvent.total * 100), 
+          loadVisibility: true,
+        });
+
         if (progressEvent.loaded === progressEvent.total) {
-          return this.setState({uploadprogress: 'Upload Completo!'})
+          setTimeout(() => this.setState({loadVisibility: false}), 2000);
         }
       }
     }
@@ -46,6 +53,8 @@ class Upload extends Component {
   };
 
   render() {
+    const { loadVisibility, uploadPercentage } = this.state
+
     return (
       <Content>
         <FormStyled name="uploadForm" onSubmit={this.submitForm}
@@ -73,7 +82,24 @@ class Upload extends Component {
             </p>
           </label>
           <button type='submit'>Enviar</button>
-          <section>{this.state.uploadprogress}</section>
+          <FormStyledOnLoad visible={loadVisibility}>
+            <CircularProgressbar
+              className="progress-container"
+              value={uploadPercentage}
+              text={`${uploadPercentage}%`}
+              styles={buildStyles({
+                // rotation: 0.25,
+                strokeLinecap: 'butt',
+                pathTransitionDuration: 0.5,
+
+                textSize: '18px',
+                textColor: '#fff',
+                trailColor: '#333',
+                pathColor: `rgba(172, 104, 170, ${uploadPercentage / 100})`,
+                backgroundColor: '#3e98c7',
+              })}
+            />
+          </FormStyledOnLoad>
         </FormStyled>
       </Content>
     );

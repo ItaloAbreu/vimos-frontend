@@ -130,3 +130,28 @@ export const FormStyled = styled.form`
     }
   }
 `;
+
+export const FormStyledOnLoad = styled.section`
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  visibility: ${props => props.visible? 'visible' : 'hidden'};
+
+  background-color: #111;
+  color: #fff;
+
+  min-width: 400px;
+  min-height: 440px;
+  max-width: 400px;
+  max-height: 440px;
+
+  .progress-container {
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+  }
+`;
