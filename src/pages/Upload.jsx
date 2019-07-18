@@ -7,15 +7,37 @@ import path from 'path';
 
 import { Content, FormStyled, FormStyledOnLoad } from './PagesStyles';
 
+// tipos de videos aceitos.
 const acceptedExt = ['.mp4', '.avi', '.ogg'];
 
-class Upload extends Component {
+export default class Upload extends Component {
   constructor(){
     super()
     this.state = {
       uploadPercentage: 0,
       loadVisibility: false,
     };
+  }
+
+  resetForm = (form) => {
+    form.video.value = '';
+    form.title.value = '';
+    form.description.value = '';
+    form.agree.checked = false;
+    return this.setState({loadVisibility: false});
+  }
+
+  validateForm = (form) => {
+    if(!acceptedExt.includes(path.extname(form.video.value))) {
+      alert('Vídeo inválido');
+      return false;
+    } else if(form.title.value.length <= 0) {
+      alert('Campo de Título inválido.');
+      return false;
+    } else if (!form.agree.checked) {
+      alert('Os termos de uso não foram aceitos.');
+      return false;
+    } else return true;
   }
 
   submitForm = async (event) => {
@@ -29,24 +51,15 @@ class Upload extends Component {
           uploadPercentage: Math.floor(progressEvent.loaded / progressEvent.total * 100), 
           loadVisibility: true,
         });
-
+         // Apos o upload, reseta todos os parametros do fomulário.
         if (progressEvent.loaded === progressEvent.total) {
-          setTimeout(() => this.setState({loadVisibility: false}), 2000);
+          setTimeout(() => this.resetForm(form), 2000);
         }
       }
     }
 
-    if(!acceptedExt.includes(path.extname(form.video.value))) {
-      return alert('Vídeo inválido');
-    };
-
-    if(form.title.value.length <= 0) {
-      return alert('Campo de Título inválido.')
-    };
-
-    if (!form.agree.checked) {
-      return alert('Os termos de uso não foram aceitos.');
-    };
+    // Caso o formulario seja invalido, não o envia ao servidor.
+    if (!this.validateForm(form)) return;
 
     return await api.post('/video/storage', data, config)
       .catch(err => console.error(err));
@@ -88,10 +101,8 @@ class Upload extends Component {
               value={uploadPercentage}
               text={`${uploadPercentage}%`}
               styles={buildStyles({
-                // rotation: 0.25,
                 strokeLinecap: 'butt',
                 pathTransitionDuration: 0.5,
-
                 textSize: '18px',
                 textColor: '#fff',
                 trailColor: '#333',
@@ -105,5 +116,3 @@ class Upload extends Component {
     );
   };
 }
-
-export default Upload;
