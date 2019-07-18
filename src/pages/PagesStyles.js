@@ -155,3 +155,13 @@ export const FormStyledOnLoad = styled.section`
     max-height: 120px;
   }
 `;
+
+export const VideoPageStyle = styled.section`
+  max-width: 800px;
+
+  h5 {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 5px;
+  }
+`;

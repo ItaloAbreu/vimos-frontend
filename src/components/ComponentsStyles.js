@@ -142,17 +142,3 @@ export const FooterStyled = styled.footer`
   }
 
 `;
-
-export const ContentPlayer = styled.section`
-  max-width: 800px;
-
-  video {
-    max-width: 800px;
-  }
-
-  h5 {
-    display: flex;
-    flex-direction: row-reverse;
-    margin: 5px;
-  }
-`;

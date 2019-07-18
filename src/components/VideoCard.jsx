@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { baseURL } from '../services/api';
 
 import { VideoCardStyled } from './ComponentsStyles';
 
@@ -11,7 +12,7 @@ export default class VideoCard extends Component {
 	async componentDidMount() {
 		this.setState({ videoinfo: {
 			videoID: this.props.videoID,
-			thumbnail: `http://localhost:9091${this.props.thumbnail}`,
+			thumbnail: `${baseURL}${this.props.thumbnail}`,
 			createdAt: this.mountDate(this.props.createdAt),
 			title: this.props.title,
 			tratedTitle: this.mountTitle(this.props.title),
@@ -39,7 +40,7 @@ export default class VideoCard extends Component {
 
 		return (
 			<VideoCardStyled>
-				<NavLink to={`/player/?video=${videoinfo.videoID}`}
+				<NavLink to={`/video/?v=${videoinfo.videoID}`}
 				title={videoinfo.title}>
 					<img src={videoinfo.thumbnail} alt="thumbnail" />
 					<p>{videoinfo.createdAt}</p>

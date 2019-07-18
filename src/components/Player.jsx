@@ -1,58 +1,40 @@
 import React, { Component } from 'react';
-import ReactPlayer from 'react-player';
+import videojs from 'video.js';
+import 'video.js/dist/video-js.css';
 
-import api from '../services/api';
-
-import { ContentPlayer } from './ComponentsStyles';
-
-class Player extends Component {
+export default class PlayerApp extends Component {
   state = {
-    data: {}
+    autoPlay: true,
+    controls: true,
+    width: 700,
   }
 
-  async componentDidMount() {
-    this.setState({ data: await this.getVideo() });
+  componentDidMount() {
+    // instantiate Video.js
+    this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
+      console.log(this)
+    });
   }
 
-  async getVideo(){
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoID = urlParams.get('video');
-    
-    const response = await api.get(`/video/${videoID}`);
-
-    response.data.createdAt = this.mountDate(response.data.createdAt)
-
-    return response.data;
+  // destroy player on unmount
+  componentWillUnmount() {
+    if (this.player) {
+      this.player.dispose()
+    }
   }
-
-  mountDate(createdAt) {
-		const months = [
-			'Janeiro', 'Fevereiro', 'Março', 'Abril',
-			'Maio', 'Junho', 'Julho', 'Agosto',
-			'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-		];
-		let date = createdAt.slice(0, 10).split('-');
-		date[1] = months[parseInt(date[1]) - 1];
-		return `Upload em ${date[2]} de ${date[1]} de ${date[0]}`;
-	}
-
+  
   render() {
-    const {url, title, description, createdAt} = this.state.data;
+    
     return (
-        <ContentPlayer>
-          <ReactPlayer
-            url={`http://localhost:9091${url}`}
-            playing
-            controls
-            nodownload
-          />
-
-          <h5>{createdAt}</h5>
-          <h1>{title}</h1>
-          <p>{description}</p>
-        </ContentPlayer>
+      <section data-vjs-player onContextMenu={(e) => e.preventDefault()}>
+        <video ref={ node => this.videoNode = node }
+          className="video-js"
+          src={this.props.url}
+          poster={this.props.poster}
+          {...this.state}
+        >
+        </video>
+      </section>
     );
   }
-}
-
-export default Player;
+};
