@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
+import VideoPlayer from '../components/VideoPlayer';
 import api, { baseURL } from '../services/api';
-
-import Player from '../components/Player';
 import { Content, VideoPageStyle } from './PagesStyles';
 
 export default class Video extends Component {
 
   state = {
-    data: {}
+    data: {},
+    videoPlayer: '',
   }
 
   async componentDidMount() {
@@ -23,9 +23,12 @@ export default class Video extends Component {
     // Monta de forma clara a da data de criação do video.
     response.data.createdAt = this.mountCreatedDate(response.data.createdAt);
 
-    // monta a URL do video e do poster.
-    response.data.url = baseURL + response.data.url;
-    response.data.thumbnail = baseURL + response.data.thumbnail;
+    // Monta o player no state apos receber os dados.
+    this.setState({videoPlayer:
+      <VideoPlayer
+        url={baseURL + response.data.url}
+        poster={baseURL + response.data.thumbnail}
+    />})
 
     return response.data;
   }
@@ -42,12 +45,15 @@ export default class Video extends Component {
   }
 
   render() {
-    const {url, thumbnail, title, description, createdAt} = this.state.data;
+    const {title, description, createdAt} = this.state.data;
 
     return (
       <Content>
         <VideoPageStyle>
-          <Player url={url} poster={thumbnail} />
+          <section>
+            {this.state.videoPlayer}
+          </section>
+          
           <h5>{createdAt}</h5>
           <h1>{title}</h1>
           <p>{description}</p>

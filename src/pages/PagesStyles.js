@@ -158,6 +158,7 @@ export const FormStyledOnLoad = styled.section`
 
 export const VideoPageStyle = styled.section`
   max-width: 800px;
+  padding: 30px 0;
 
   h5 {
     display: flex;
