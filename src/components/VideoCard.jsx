@@ -37,7 +37,7 @@ export default class VideoCard extends Component {
 		let diffExit;
 
 		if (exit === 'days') {
-			diffExit = Math.ceil(timeDiff / (1000 * 3600 * 24) - 1); 
+			diffExit = Math.floor(timeDiff / (1000 * 3600 * 24)); 
 		} else if (exit === 'hours') {
 			diffExit = Math.floor((timeDiff % 86400000) / 3600000); 
 		} else if (exit === 'minutes') {
